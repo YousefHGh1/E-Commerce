@@ -31,7 +31,7 @@
                     <!--begin::Login Header-->
                     <div class="d-flex flex-center mb-15">
                         <a href="#">
-                            <img src="{{ asset('assets/bg/logo-light.png') }}" class="max-h-75px" alt="" />
+                            <img src="{{ asset('market/assets/img/logo.png') }}" class="max-h-50px" alt="" />
                         </a>
                     </div>
                     <!--end::Login Header-->
@@ -67,7 +67,7 @@
 
                             <div class="form-group
                                     text-center mt-10">
-                                <button type="submit" class="btn btn-pill btn-primary opacity-90 px-15 py-3">
+                                <button type="submit" class="btn btn-pill btn-warning opacity-90 px-15 py-3">
                                     {{ __('Login') }}
                                 </button>
                             </div>
