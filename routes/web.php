@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -65,5 +66,6 @@ Route::middleware(['auth'])->group(function () {
         return view('E-Commerce.pages.404-page');
     })->name('404-page');
 
+    Route::resource('category',CategoryController::class);
 
 });

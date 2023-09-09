@@ -8,7 +8,6 @@
     "Password": "Password",
     "Welcome Back": "Welcome Back",
     "controll_panel": "controll_panel",
-    "Administrative Affairs": "Administrative Affairs",
     "action": "action",
     "Create": "create new",
     "Index": "Index",
@@ -24,14 +23,7 @@
     "roles": "roles",
     "profile_page": "profile_page",
     "Categories": "Categories",
-    "start_degree": "start_degree",
-    "end_degree": "end_degree",
-    "bonus_oercent": "bonus_oercent",
-    "users": "users",
-    "departments": "departments",
-    "sections": "sections",
-    "branchs": "branchs",
-    "Create departments": "Create departments",
-    "update departments": "update departments",
-    "delete departments": "delete departments"
+    "Category": "Category",
+    "users": "users"
+
 }
