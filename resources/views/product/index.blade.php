@@ -11,7 +11,7 @@
     {{ __('home') }}
 @endsection
 @section('sub_title')
-    {{ __('Category') }}
+    {{ __('product') }}
 @endsection
 
 @section('css')
@@ -24,12 +24,12 @@
             <!--begin::Header-->
             <div class="card-header border-0 py-5">
                 <h3 class="card-title align-items-start flex-column">
-                    <span class="card-label font-weight-bolder text-dark">{{ __('Category') }}</span>
+                    <span class="card-label font-weight-bolder text-dark">{{ __('product') }}</span>
                 </h3>
                 <div class="card-toolbar">
                     <a class="btn btn-success font-weight-bolder font-size-sm" data-toggle="modal" data-target="#createModal">
                         <span class="svg-icon svg-icon-md svg-icon-white">
-                            <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Communication/Add-category.svg--><svg
+                            <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Communication/Add-product.svg--><svg
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                                 height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -51,13 +51,13 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">{{ __('Create Category') }}</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">{{ __('Create product') }}</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <i aria-hidden="true" class="ki ki-close"></i>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form" action="{{ route('category.store') }}" method="post"
+                                    <form class="form" action="{{ route('product.store') }}" method="post"
                                         enctype="multipart/form-data">
                                         @csrf
 
@@ -105,7 +105,7 @@
             <div class="card-body pt-0 pb-3">
                 <!--begin::Table-->
                 <div class="table-responsive">
-                    {{-- @can('index categorys') --}}
+                    {{-- @can('index products') --}}
 
                     <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
                         <thead>
@@ -117,12 +117,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($categories as $category)
+                            @forelse($products as $product)
                                 <tr>
-                                    <td class="pl-0 py-8">{{ $category->id }}</td>
-                                    <td class="pl-0 py-8">{{ $category->name }}</td>
+                                    <td class="pl-0 py-8">{{ $product->id }}</td>
+                                    <td class="pl-0 py-8">{{ $product->name }}</td>
                                     <td class="pl-0 py-8">
-                                        <a href=" {{ asset('storage/' . $category->image) }}" target="_blank">
+                                        <a href=" {{ asset('storage/' . $product->image) }}" target="_blank">
                                             <svg width="50" height="50" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path opacity="0.3"
@@ -136,9 +136,9 @@
 
                                     <td class="pr-0 ">
                                         {{-- edit-update --}}
-                                        {{-- @can('update categorys') --}}
+                                        {{-- @can('update products') --}}
                                         <a class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" data-toggle="modal"
-                                            data-target="#editModal{{ $category->id }}">
+                                            data-target="#editModal{{ $product->id }}">
                                             <span class="svg-icon svg-icon-md svg-icon-primary">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -160,13 +160,13 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                        <div class="modal fade " id="editModal{{ $category->id }}" role="dialog"
+                                        <div class="modal fade " id="editModal{{ $product->id }}" role="dialog"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">
-                                                            {{ __('update category') }} - {{ $category->name }}</h5>
+                                                            {{ __('update product') }} - {{ $product->name }}</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <i aria-hidden="true" class="ki ki-close"></i>
@@ -174,7 +174,7 @@
                                                     </div>
                                                     <div class="modal-body" style="padding: 0">
                                                         <!--begin::Form-->
-                                                        <form action="{{ route('category.update', $category->id) }}"
+                                                        <form action="{{ route('product.update', $product->id) }}"
                                                             method="post" class="form" novalidate enctype="multipart/form-data">
                                                             @csrf
                                                             @method('PUT')
@@ -185,7 +185,7 @@
                                                                         <input
                                                                             class="@error('name') is-invalid @enderror form-control"
                                                                             type="text" name="name" id="name"
-                                                                            value="{{ old('name', $category->name) }}" />
+                                                                            value="{{ old('name', $product->name) }}" />
                                                                     </div>
                                                                     @error('name')
                                                                         <span
@@ -197,14 +197,14 @@
                                                                     <input
                                                                         class="@error('image') is-invalid @enderror form-control"
                                                                         type="file" name="image" id="image"
-                                                                        value="{{ old('image', $category->image) }}"
+                                                                        value="{{ old('image', $product->image) }}"
                                                                         placeholder="{{ __('image') }}" />
                                                                     @error('image')
                                                                         <span
                                                                             class="text-sm text-danger">{{ $message }}</span>
                                                                     @enderror
                                                                 </div>
-                                                                <a href=" {{ asset('storage/' . $category->image) }}"
+                                                                <a href=" {{ asset('storage/' . $product->image) }}"
                                                                     target="_blank">
                                                                     <svg width="50" height="50"
                                                                         viewBox="0 0 24 24" fill="none"
@@ -232,8 +232,8 @@
                                         {{-- @endcan --}}
 
                                         {{-- DELETE --}}
-                                        {{-- @can('delete categorys') --}}
-                                        <form class="d-inline-block" action="{{ route('category.destroy', $category) }}"
+                                        {{-- @can('delete products') --}}
+                                        <form class="d-inline-block" action="{{ route('product.destroy', $product) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -270,8 +270,8 @@
                             @endforelse{{-- --}}
                         </tbody>
                     </table>
-                    {{-- {{ $categorys->links() }} --}}
-                    {!! $categories->withQueryString()->links('pagination::bootstrap-5') !!}
+                    {{-- {{ $products->links() }} --}}
+                    {!! $products->withQueryString()->links('pagination::bootstrap-5') !!}
                     {{-- @endcan --}}
                 </div>
                 <!--end::Table-->

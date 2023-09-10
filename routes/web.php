@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,12 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+// ['register' => false]
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/markets', [HomeController::class, 'ECommerce'])->name('E-Commerce');
+    Route::get('/cp', [HomeController::class, 'index'])->name('home');
+    Route::get('/', [HomeController::class, 'ECommerce'])->name('E-Commerce');
     // ***pages
     Route::get('/static-home', function () {
         return view('E-Commerce.pages.index');
@@ -66,6 +67,6 @@ Route::middleware(['auth'])->group(function () {
         return view('E-Commerce.pages.404-page');
     })->name('404-page');
 
-    Route::resource('category',CategoryController::class);
-
+    Route::resource('category', CategoryController::class);
+    Route::resource('product', ProductController::class);
 });
