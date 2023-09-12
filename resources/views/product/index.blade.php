@@ -48,7 +48,7 @@
 
                     <div class="modal fade " id="createModal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog" role="document" style="max-width: 800px; margin-right:30%">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">{{ __('Create product') }}</h5>
@@ -61,27 +61,87 @@
                                         enctype="multipart/form-data">
                                         @csrf
 
-                                        <div class="form-group ">
-                                            <label>{{ __('name') }}</label>
-                                            <div class="input-group">
-                                                <input class="@error('name') is-invalid @enderror form-control"
-                                                    type="text" name="name" id="name"
-                                                    value="{{ old('name') }}" />
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                {{-- 1 name --}}
+                                                <div class="form-group ">
+                                                    <label>{{ __('name') }}</label>
+                                                    <div class="input-group">
+                                                        <input class="@error('name') is-invalid @enderror form-control"
+                                                            type="text" name="name" id="name"
+                                                            value="{{ old('name') }}" />
+                                                    </div>
+                                                    @error('name')
+                                                        <span class="text-sm text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                {{-- 2 price --}}
+                                                <div class="form-group ">
+                                                    <label>{{ __('price') }}</label>
+                                                    <div class="input-group">
+                                                        <input class="@error('price') is-invalid @enderror form-control"
+                                                            type="text" name="price" id="price"
+                                                            value="{{ old('price') }}" />
+                                                    </div>
+                                                    @error('price')
+                                                        <span class="text-sm text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
                                             </div>
-                                            @error('name')
-                                                <span class="text-sm text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group ">
-                                            <label>{{ __('image') }}</label>
-                                            <div class="input-group">
-                                                <input class="@error('image') is-invalid @enderror form-control"
-                                                    type="file" name="image" id="image"
-                                                    value="{{ old('image') }}" />
+
+                                            <div class="col-md-6">
+                                                {{-- 3 category --}}
+                                                <div class="form-group ">
+                                                    <label>{{ __('category') }}</label>
+                                                    <div class="input-group">
+                                                        <select name="category_id" id="category_id"
+                                                            value="{{ old('category_id') }}"
+                                                            class="@error('category_id') is-invalid @enderror form-control">
+                                                            @foreach ($categories as $category)
+                                                                <option value="">{{ __('choose') }}</option>
+                                                                <option
+                                                                    {{ old('category_id') == $category->id ? 'selected' : '' }}
+                                                                    value="{{ $category->id }}">
+                                                                    {{ $category->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('category_id')
+                                                            <span class="text-sm text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                </div>
+
+                                                {{-- 4 image --}}
+                                                <div class="form-group ">
+                                                    <label>{{ __('image') }}</label>
+                                                    <div class="input-group">
+                                                        <input class="@error('image') is-invalid @enderror form-control"
+                                                            type="file" name="image" id="image"
+                                                            value="{{ old('image') }}" />
+                                                    </div>
+                                                    @error('image')
+                                                        <span class="text-sm text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
                                             </div>
-                                            @error('image')
-                                                <span class="text-sm text-danger">{{ $message }}</span>
-                                            @enderror
+
+                                            <div class="col-md-12">
+                                                {{-- 5 description --}}
+                                                <div class="form-group ">
+                                                    <label>{{ __('description') }}</label>
+                                                    <div class="input-group">
+                                                        <textarea cols="5" rows="5" value="{{ old('description') }}"
+                                                            class="@error('description') is-invalid @enderror form-control" name="description" id="description">
+                                                        </textarea>
+                                                        @error('description')
+                                                            <span class="text-sm text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="modal-footer">
@@ -110,18 +170,22 @@
                     <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
                         <thead>
                             <tr class="text-uppercase">
-                                <th style="min-width: 100px">{{ __('id') }}</th>
-                                <th style="min-width: 250px">{{ __('name') }}</th>
-                                <th style="min-width: 250px">{{ __('image') }}</th>
-                                <th style="min-width: 120px">{{ __('action') }}</th>
+                                <th style="min-width: 10px">{{ __('id') }}</th>
+                                <th style="min-width: 100px">{{ __('name') }}</th>
+                                <th style="min-width: 100px">{{ __('category') }}</th>
+                                <th style="min-width: 100px">{{ __('price') }}</th>
+                                <th style="min-width: 100px">{{ __('image') }}</th>
+                                <th style="min-width: 100px">{{ __('action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($products as $product)
                                 <tr>
-                                    <td class="pl-0 py-8">{{ $product->id }}</td>
-                                    <td class="pl-0 py-8">{{ $product->name }}</td>
-                                    <td class="pl-0 py-8">
+                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->category->name }}</td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>
                                         <a href=" {{ asset('storage/' . $product->image) }}" target="_blank">
                                             <svg width="50" height="50" viewBox="0 0 24 24" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -137,8 +201,8 @@
                                     <td class="pr-0 ">
                                         {{-- edit-update --}}
                                         {{-- @can('update products') --}}
-                                        <a class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3" data-toggle="modal"
-                                            data-target="#editModal{{ $product->id }}">
+                                        <a class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+                                            data-toggle="modal" data-target="#editModal{{ $product->id }}">
                                             <span class="svg-icon svg-icon-md svg-icon-primary">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -175,47 +239,119 @@
                                                     <div class="modal-body" style="padding: 0">
                                                         <!--begin::Form-->
                                                         <form action="{{ route('product.update', $product->id) }}"
-                                                            method="post" class="form" novalidate enctype="multipart/form-data">
+                                                            method="post" class="form" novalidate
+                                                            enctype="multipart/form-data">
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="card-body">
-                                                                <div class="form-group ">
-                                                                    <label>{{ __('name') }}</label>
-                                                                    <div class="input-group">
-                                                                        <input
-                                                                            class="@error('name') is-invalid @enderror form-control"
-                                                                            type="text" name="name" id="name"
-                                                                            value="{{ old('name', $product->name) }}" />
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        {{-- 1 name --}}
+                                                                        <div class="form-group ">
+                                                                            <label>{{ __('name') }}</label>
+                                                                            <div class="input-group">
+                                                                                <input
+                                                                                    class="@error('name') is-invalid @enderror form-control"
+                                                                                    type="text" name="name"
+                                                                                    id="name"
+                                                                                    value="{{ old('name', $product->name) }}" />
+                                                                            </div>
+                                                                            @error('name')
+                                                                                <span
+                                                                                    class="text-sm text-danger">{{ $message }}</span>
+                                                                            @enderror
+                                                                        </div>
+
+                                                                        {{-- 2 price --}}
+                                                                        <div class="form-group ">
+                                                                            <label>{{ __('price') }}</label>
+                                                                            <div class="input-group">
+                                                                                <input
+                                                                                    class="@error('price') is-invalid @enderror form-control"
+                                                                                    type="text" name="price"
+                                                                                    id="price"
+                                                                                    value="{{ old('price', $product->price) }}" />
+                                                                            </div>
+                                                                            @error('price')
+                                                                                <span
+                                                                                    class="text-sm text-danger">{{ $message }}</span>
+                                                                            @enderror
+                                                                        </div>
                                                                     </div>
-                                                                    @error('name')
-                                                                        <span
-                                                                            class="text-sm text-danger">{{ $message }}</span>
-                                                                    @enderror
+
+                                                                    <div class="col-md-6">
+                                                                        {{-- 3 category --}}
+                                                                        <div class="form-group ">
+                                                                            <label>{{ __('category') }}</label>
+                                                                            <div class="input-group">
+                                                                                <select name="category_id"
+                                                                                    id="category_id"
+                                                                                    value="{{ old('category_id') }}"
+                                                                                    class="@error('category_id') is-invalid @enderror form-control">
+                                                                                    @foreach ($categories as $category)
+                                                                                        <option value="">
+                                                                                            {{ __('choose') }}</option>
+                                                                                        <option value="{{ $category->id }}"
+                                                                                            {{ old('category_id', $product->category_id)== $category->id ? 'selected' : '' }}>
+                                                                                            {{ $category->name }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                                @error('category_id')
+                                                                                    <span
+                                                                                        class="text-sm text-danger">{{ $message }}</span>
+                                                                                @enderror
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        {{-- 4 image --}}
+                                                                        <div class="form-group">
+                                                                            <label
+                                                                                for="image">{{ __('image') }}</label>
+                                                                            <input
+                                                                                class="@error('image') is-invalid @enderror form-control"
+                                                                                type="file" name="image"
+                                                                                id="image"
+                                                                                value="{{ old('image', $product->image) }}"
+                                                                                placeholder="{{ __('image') }}" />
+                                                                            @error('image')
+                                                                                <span
+                                                                                    class="text-sm text-danger">{{ $message }}</span>
+                                                                            @enderror
+                                                                        </div>
+                                                                        <a href=" {{ asset('storage/' . $product->image) }}"
+                                                                            target="_blank">
+                                                                            <svg width="50" height="50"
+                                                                                viewBox="0 0 24 24" fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                <path opacity="0.3"
+                                                                                    d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22Z"
+                                                                                    fill="currentColor"></path>
+                                                                                <path
+                                                                                    d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z"
+                                                                                    fill="currentColor"></path>
+                                                                            </svg>
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <div class="col-md-12">
+                                                                        {{-- 5 description --}}
+                                                                        <div class="form-group ">
+                                                                            <label>{{ __('description') }}</label>
+                                                                            <div class="input-group">
+                                                                                <textarea cols="5" rows="5" value=""
+                                                                                    class="@error('description') is-invalid @enderror form-control" name="description" id="description">
+                                                                                    {{ old('description', $product->description) }}
+                                                                            </textarea>
+                                                                                @error('description')
+                                                                                    <span
+                                                                                        class="text-sm text-danger">{{ $message }}</span>
+                                                                                @enderror
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <label for="image">{{ __('image') }}</label>
-                                                                    <input
-                                                                        class="@error('image') is-invalid @enderror form-control"
-                                                                        type="file" name="image" id="image"
-                                                                        value="{{ old('image', $product->image) }}"
-                                                                        placeholder="{{ __('image') }}" />
-                                                                    @error('image')
-                                                                        <span
-                                                                            class="text-sm text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                                <a href=" {{ asset('storage/' . $product->image) }}"
-                                                                    target="_blank">
-                                                                    <svg width="50" height="50"
-                                                                        viewBox="0 0 24 24" fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path opacity="0.3"
-                                                                            d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22Z"
-                                                                            fill="currentColor"></path>
-                                                                        <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z"
-                                                                            fill="currentColor"></path>
-                                                                    </svg>
-                                                                </a>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button"
@@ -275,6 +411,7 @@
                     {{-- @endcan --}}
                 </div>
                 <!--end::Table-->
+
             </div>
             <!--end::Body-->
         </div>

@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
-            $table->float('price');
+            $table->string('price');
             $table->text('image')->nullable();
+            $table->text('stock_amount')->nullable();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->timestamps();
         });
