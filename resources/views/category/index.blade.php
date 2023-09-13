@@ -117,9 +117,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $i = 0;
+                            @endphp
                             @forelse($categories as $category)
+                                @php
+                                    $i++ ;
+                                @endphp
+
                                 <tr>
-                                    <td class="pl-0 py-8">{{ $category->id }}</td>
+                                    <td class="pl-0 py-8">{{ $i }}</td>
                                     <td class="pl-0 py-8">{{ $category->name }}</td>
                                     <td class="pl-0 py-8">
                                         <a href=" {{ asset('storage/' . $category->image) }}" target="_blank">
@@ -175,7 +182,8 @@
                                                     <div class="modal-body" style="padding: 0">
                                                         <!--begin::Form-->
                                                         <form action="{{ route('category.update', $category->id) }}"
-                                                            method="post" class="form" novalidate enctype="multipart/form-data">
+                                                            method="post" class="form" novalidate
+                                                            enctype="multipart/form-data">
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="card-body">

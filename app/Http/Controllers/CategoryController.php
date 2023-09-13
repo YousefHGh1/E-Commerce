@@ -19,10 +19,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name'   => 'required|string|regex:/^[\p{L}\s]+$/u|max:255',
+            'name' => 'required|string|unique:categories|max:255|regex:/^[\p{L}\s]+$/u',
             'image'        => 'required|mimes:jpeg,png,jpg,gif',
         ],[
             'required' => __('required'),
+            'uniqe' => __('uniqe'),
             'mimes' => __('mimes'),
             'string'=> __('string'),
             'regex'=> __('regex'),
@@ -38,7 +39,8 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $validatedData = $request->validate([
-            'name'   => 'required|string|regex:/^[\p{L}\s]+$/u|max:255',
+            //  except:id
+            'name' => 'required|string|unique:categories,name,' . $category->id . '|max:255|regex:/^[\p{L}\s]+$/u',
             'image'        => 'nullable',
         ],[
             'required' => __('required'),

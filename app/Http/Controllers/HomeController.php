@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +26,16 @@ class HomeController extends Controller
 
     public function ECommerce()
     {
-        return view('E-Commerce.E-Commerce');
+        $categories=Category::paginate('6');
+        return view('E-Commerce.E-Commerce' ,compact('categories'));
     }
+    public function product( )
+    {
+        $products=Product::paginate(5);
+        return view('E-Commerce.products',compact('products'));
+    }
+
+
 }
+
+    
