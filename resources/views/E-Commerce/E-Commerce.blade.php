@@ -5,6 +5,38 @@
 @endsection
 
 @section('css')
+    <style>
+        .product-image img {
+            border: 1px solid white;
+            border-radius: 50%;
+        }
+
+        .page-link,
+        .page-item ul li span {
+            color: #6f6f6f;
+            font-size: 15px;
+            background-color: #f3f3f3 !important;
+            display: inline-block;
+            padding: 8px 14px;
+            border: 1px solid white;
+            margin: 3px;
+            font-weight: 600;
+            border-radius: 50px;
+        }
+
+        .page-link:hover,
+        .page-item ul li span:hover {
+            background-color: #F28123 !important;
+            border: 1px solid white !important;
+            color: #6f6f6f !important;
+        }
+
+        .page-item.active .page-link {
+            color: #6f6f6f;
+            background-color: #F28123 !important;
+            border-color: #F28123 !important;
+        }
+    </style>
 @endsection
 
 
@@ -124,38 +156,42 @@
                 <div class="col-lg-8 offset-lg-2 text-center">
                     <div class="section-title">
                         <h3><span class="orange-text">Our</span> Catgories</h3>
-                        <p>All The Engilsh All The Time.</p>
+                        <p>All Catgories.</p>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-
                 @foreach ($categories as $category)
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="single-product-item">
-                       
-                        <div class="product-image">
-                            <a href="{{ route('product') }}">
-                                {{-- <img src="{{ asset($category->image) }}" alt=""> --}}
-                                <img src="{{ asset('storage/' . $category->image) }}" alt="Category Image" style="min-height: 250px; max-height: 250px;">
+                    <div class="col-lg-4 col-md-6 text-center">
+                        <div class="single-product-item">
 
+                            <div class="product-image">
+                                <a href="{{ route('ECommerce.cat_product', $category->id) }}">
+                                    <img src="{{ asset('storage/' . $category->image) }}" alt="Category Image"
+                                        style="min-height: 250px; max-height: 250px;">
+
+                                </a>
+                            </div>
+                            <a href="{{ route('ECommerce.cat_product', $category->id) }}" target="_blank">
+                                <h3>{{ $category->name }}</h3>
                             </a>
+
+                            {{-- <p class="product-price"><span>Per Kg</span> 85$ </p> --}}
+                            {{-- <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a> --}}
                         </div>
-                        <h3>{{ $category->name }}</h3>
-                        {{-- <p class="product-price"><span>Per Kg</span> 85$ </p> --}}
-                        {{-- <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a> --}}
                     </div>
-                </div>     
                 @endforeach
-                
-               
+            </div>
+
+            <div class="paginate col-md-12 text-center">
+                {!! $categories->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>
     <!-- end product section -->
 
-    
+
     <!-- cart banner section -->
     <section class="cart-banner pt-100 pb-100">
         <div class="container">
@@ -380,8 +416,6 @@
         </div>
     </div>
     <!-- end latest news -->
-
-
 @endsection
 
 @section('scripts')
