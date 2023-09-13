@@ -98,8 +98,9 @@
                                                         <select name="category_id" id="category_id"
                                                             value="{{ old('category_id') }}"
                                                             class="@error('category_id') is-invalid @enderror form-control">
+                                                            <option value="">{{ __('choose') }}</option>
+
                                                             @foreach ($categories as $category)
-                                                                <option value="">{{ __('choose') }}</option>
                                                                 <option
                                                                     {{ old('category_id') == $category->id ? 'selected' : '' }}
                                                                     value="{{ $category->id }}">
@@ -179,9 +180,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $i = 0;
+                            @endphp
+
                             @forelse($products as $product)
+                                @php
+                                    $i++;
+                                @endphp
                                 <tr>
-                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $i }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->price }}</td>
@@ -226,7 +234,8 @@
                                         </a>
                                         <div class="modal fade " id="editModal{{ $product->id }}" role="dialog"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
+                                            <div class="modal-dialog" role="document"
+                                                style="max-width: 800px; margin-right:30%">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">
@@ -291,8 +300,9 @@
                                                                                     @foreach ($categories as $category)
                                                                                         <option value="">
                                                                                             {{ __('choose') }}</option>
-                                                                                        <option value="{{ $category->id }}"
-                                                                                            {{ old('category_id', $product->category_id)== $category->id ? 'selected' : '' }}>
+                                                                                        <option
+                                                                                            value="{{ $category->id }}"
+                                                                                            {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
                                                                                             {{ $category->name }}
                                                                                         </option>
                                                                                     @endforeach

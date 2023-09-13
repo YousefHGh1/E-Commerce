@@ -26,6 +26,8 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/cp', [HomeController::class, 'index'])->name('home');
     Route::get('/', [HomeController::class, 'ECommerce'])->name('E-Commerce');
+    Route::get('/ECommerce/product', [HomeController::class, 'product'])->name('product');
+
     // ***pages
     Route::get('/static-home', function () {
         return view('E-Commerce.pages.index');

@@ -43,7 +43,7 @@
                                  </ul>
                              </li>
                              <li><a href="{{ route('contact') }}">Contact</a></li>
-                             <li><a href="{{ route('shop') }}">Shop</a>
+                             <li><a href="{{ route('product') }}">product</a>
                                  <ul class="sub-menu">
                                      <li><a href="{{ route('shop') }}">Shop</a></li>
                                      <li><a href="{{ route('single-product') }}">Single Product</a></li>
