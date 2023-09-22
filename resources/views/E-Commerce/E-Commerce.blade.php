@@ -162,7 +162,8 @@
             </div>
 
             <div class="row">
-                @foreach ($categories as $category)
+
+                @forelse ($categories as $category)
                     <div class="col-lg-4 col-md-6 text-center">
                         <div class="single-product-item">
 
@@ -181,7 +182,13 @@
                             {{-- <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a> --}}
                         </div>
                     </div>
-                @endforeach
+                    @empty
+                    <div class="col-lg-8 offset-lg-2 text-center">
+                        <div class="section-title">
+                            <h4>{{ __('No_Records') }}.</h4>
+                        </div>
+                    </div>
+                @endforelse
             </div>
 
             <div class="paginate col-md-12 text-center">
